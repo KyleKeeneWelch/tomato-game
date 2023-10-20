@@ -1,10 +1,10 @@
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcrypt");
 
-function initialize(passport, getUserByEmail, getUserById) {
+function initialize(passport, database) {
   // Authenticates user and displays appropriate error flash messages
   const authenticateUser = async (email, password, done) => {
-    const user = getUserByEmail(email);
+    const user = await database.findOne({ email: email }, "users");
     if (user == null) {
       return done(null, false, { message: "No user with that email" });
     }
@@ -23,10 +23,15 @@ function initialize(passport, getUserByEmail, getUserById) {
   // Use local strategy. Set email as username field. Set authenticateUser as function to authenticate.
   passport.use(new LocalStrategy({ usernameField: "email" }, authenticateUser));
   // Store user id in session.
-  passport.serializeUser((user, done) => done(null, user.id));
+  passport.serializeUser((user, done) => done(null, user._id.toString()));
   // Grab user id in session.
-  passport.deserializeUser((id, done) => {
-    done(null, getUserById(id));
+  passport.deserializeUser(async (id, done) => {
+    try {
+      const user = await database.findById(id, "users");
+      return done(null, user);
+    } catch (e) {
+      return done(e);
+    }
   });
 }
 

@@ -10,17 +10,20 @@ const passport = require("passport");
 const flash = require("express-flash");
 const session = require("express-session");
 const methodOverride = require("method-override");
+const _database = require("./database");
+
+const database = new _database();
+database.connect();
 
 // Separates passport initialization from server. Injects functions to find user by email and id.
 const initializePassport = require("./passport-config");
-initializePassport(
-  passport,
-  (email) => users.find((user) => user.email === email),
-  (id) => users.find((user) => user.id === id)
-);
+initializePassport(passport, database);
 
-// Local db alternative
-const users = [];
+// async function findUser() {
+//   const result = await database.findById("6532c9cbd1616f036fb1fc94", "users");
+//   console.log(result);
+// }
+// findUser();
 
 // Set the express app to use ejs as view engine
 app.set("view-engine", "ejs");
@@ -49,6 +52,7 @@ app.use(methodOverride("_method"));
 
 // Pass in name from serialized user. Check if authenticated and redirect to login if not.
 app.get("/", checkAuthenticated, (req, res) => {
+  console.log(req.user);
   res.render("index.ejs", { name: req.user.name });
 });
 
@@ -79,17 +83,18 @@ app.get("/register", checkNotAuthenticated, (req, res) => {
 app.post("/register", checkNotAuthenticated, async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    users.push({
-      id: Date.now().toString(),
-      name: req.body.name,
-      email: req.body.email,
-      password: hashedPassword,
-    });
+    database.create(
+      {
+        name: req.body.name,
+        email: req.body.email,
+        password: hashedPassword,
+      },
+      "users"
+    );
     res.redirect("/login");
   } catch {
     res.redirect("/register");
   }
-  console.log(users);
 });
 
 // Logout the user and delete session.
