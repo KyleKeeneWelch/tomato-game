@@ -4,27 +4,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Mathmato - Register</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
+    <script src="https://kit.fontawesome.com/35e096853f.js" crossorigin="anonymous"></script>
+    <script src="scripts/display.js"></script>
 </head>
 
 <body>
-    <h1>Register</h1>
-    <form action="/register" method="POST">
-        <div>
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" required>
-        </div>
-        <div>
-            <label for="email">Email</label>
-            <input type="text" id="email" name="email" required>
-        </div>
-        <div>
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-        <button type="submit">Register</button>
-    </form>
-    <a href="/login">Login</a>
+    <section>
+        <%- include('nav'); %>
+            <section class="jumbotron">
+                <div class="jumbo-logo">
+                    <img alt="Tomato Logo" src="assets/tomato.png">
+                    <h1 class="logo-text">Mathmato</h1>
+                </div>
+                <caption>
+                    <a href='https://pngtree.com/freepng/cartoon-tomato-cute-vegetable-sticker-emoticon_6643576.html'>Image
+                        from pngtree.com/</a>
+                </caption>
+            </section>
+            <main>
+                <br>
+                <h1>Register</h1>
+                <p>Sign up and become the next Mathmato-cian</p>
+                <p>Play up to 200 puzzles and try beat our high scores!</p>
+                <br>
+                <form action="/register" method="POST" autocomplete="on">
+                    <div>
+                        <label for="name">Name</label>
+                        <br>
+                        <div class="gradient-box"><input class="gradient-content" type="text" id="name" name="name"
+                                required autocomplete="name"></div>
+                    </div>
+                    <div>
+                        <label for="email">Email</label>
+                        <br>
+                        <div class="gradient-box"><input class="gradient-content" type="text" id="email" name="email"
+                                required autocomplete="email"></div>
+                    </div>
+                    <div>
+                        <label for="password">Password</label>
+                        <br>
+                        <div class="gradient-box"><input class="gradient-content" type="password" id="password"
+                                name="password" required></div>
+                    </div>
+                    <div>
+                        <label for="street">Street Address</label>
+                        <br>
+                        <div class="gradient-box"><input class="gradient-content" type="text" id="street" name="street"
+                                required></div>
+                    </div>
+                    <div>
+                        <label for="city">City</label>
+                        <br>
+                        <div class="gradient-box"><input class="gradient-content" type="text" id="city" name="city"
+                                required></div>
+                    </div>
+                    <button type="submit">Register</button>
+                </form>
+            </main>
+            <%- include('footer'); %>
 </body>
 
 </html>

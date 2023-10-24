@@ -47,18 +47,31 @@ app.use(passport.initialize());
 app.use(passport.session());
 // Override method to use delete instead of post
 app.use(methodOverride("_method"));
+// Serves static files
+app.use(express.static(__dirname + "/public/"));
 
 // Routes //////////////////////
 
 // Pass in name from serialized user. Check if authenticated and redirect to login if not.
 app.get("/", checkAuthenticated, (req, res) => {
-  console.log(req.user);
-  res.render("index.ejs", { name: req.user.name });
+  // console.log(req.user);
+  const isAuthenticated = false;
+  if (req.isAuthenticated()) {
+    isAuthenticated = true;
+  }
+  res.render("index.ejs", {
+    name: req.user.name,
+    isAuthenticated: isAuthenticated,
+  });
 });
 
 // Check if not authenticated and redirect to home if is.
 app.get("/login", checkNotAuthenticated, (req, res) => {
-  res.render("login.ejs");
+  const isAuthenticated = false;
+  if (req.isAuthenticated()) {
+    isAuthenticated = true;
+  }
+  res.render("login.ejs", { isAuthenticated: isAuthenticated });
 });
 
 // Use passport local strategy to redirect and display flash messages upon authentication outcome.
@@ -75,7 +88,11 @@ app.post(
 
 // Check if not authenticated and redirect to home if is.
 app.get("/register", checkNotAuthenticated, (req, res) => {
-  res.render("register.ejs");
+  const isAuthenticated = false;
+  if (req.isAuthenticated()) {
+    isAuthenticated = true;
+  }
+  res.render("register.ejs", { isAuthenticated: isAuthenticated });
 });
 
 // Use bcrypt to hash the password for safe storage.
@@ -88,6 +105,7 @@ app.post("/register", checkNotAuthenticated, async (req, res) => {
         name: req.body.name,
         email: req.body.email,
         password: hashedPassword,
+        address: { street: req.body.street, city: req.body.city },
       },
       "users"
     );

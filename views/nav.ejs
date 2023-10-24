@@ -1,0 +1,31 @@
+<nav>
+    <div>
+        <a href="/"><img alt="Tomato Logo" src="assets/tomato.png"></a>
+        <h2 class="logo-text">Mathmato</h2>
+    </div>
+    <div class="nav">
+        <a href="javascript:void(0);" class="icon" id="btn-hamburger">&#9776;</a>
+        <% if (isAuthenticated) { %>
+            <a href="/">Play</a>
+            <a href="">High Scores</a>
+            <form action="/logout?_method=DELETE" method="POST">
+                <button type="submit">Log Out</button>
+            </form>
+            <% } else { %>
+                <a href="/login">Login</a>
+                <a href="/register">Register</a>
+                <% } %>
+    </div>
+    <div class="responsive-menu" id="responsive-menu">
+        <% if (isAuthenticated) { %>
+            <a href="/">Play</a>
+            <a href="">High Scores</a>
+            <form action="/logout?_method=DELETE" method="POST">
+                <button type="submit">Log Out</button>
+            </form>
+            <% } else { %>
+                <a href="/login">Login</a>
+                <a href="/register">Register</a>
+                <% } %>
+    </div>
+</nav>
