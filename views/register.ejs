@@ -25,44 +25,48 @@
                 </caption>
             </section>
             <main>
-                <br>
-                <h1>Register</h1>
-                <p>Sign up and become the next Mathmato-cian</p>
-                <p>Play up to 200 puzzles and try beat our high scores!</p>
-                <br>
-                <form action="/register" method="POST" autocomplete="on">
-                    <div>
-                        <label for="name">Name</label>
-                        <br>
-                        <div class="gradient-box"><input class="gradient-content" type="text" id="name" name="name"
-                                required autocomplete="name"></div>
-                    </div>
-                    <div>
-                        <label for="email">Email</label>
-                        <br>
-                        <div class="gradient-box"><input class="gradient-content" type="text" id="email" name="email"
-                                required autocomplete="email"></div>
-                    </div>
-                    <div>
-                        <label for="password">Password</label>
-                        <br>
-                        <div class="gradient-box"><input class="gradient-content" type="password" id="password"
-                                name="password" required></div>
-                    </div>
-                    <div>
-                        <label for="street">Street Address</label>
-                        <br>
-                        <div class="gradient-box"><input class="gradient-content" type="text" id="street" name="street"
-                                required></div>
-                    </div>
-                    <div>
-                        <label for="city">City</label>
-                        <br>
-                        <div class="gradient-box"><input class="gradient-content" type="text" id="city" name="city"
-                                required></div>
-                    </div>
-                    <button type="submit">Register</button>
-                </form>
+                <!-- Display flash messages if any -->
+                <% if (messages.error) { %>
+                    <%= messages.error %>
+                        <% } %>
+                            <br>
+                            <h1>Register</h1>
+                            <p>Sign up and become the next Mathmato-cian</p>
+                            <p>Play up to 200 puzzles and try beat our high scores!</p>
+                            <br>
+                            <form action="/register" method="POST" autocomplete="on">
+                                <div>
+                                    <label for="name">Name</label>
+                                    <br>
+                                    <div class="gradient-box"><input class="gradient-content" type="text" id="name"
+                                            name="name" required autocomplete="name"></div>
+                                </div>
+                                <div>
+                                    <label for="email">Email</label>
+                                    <br>
+                                    <div class="gradient-box"><input class="gradient-content" type="text" id="email"
+                                            name="email" required autocomplete="email"></div>
+                                </div>
+                                <div>
+                                    <label for="password">Password</label>
+                                    <br>
+                                    <div class="gradient-box"><input class="gradient-content" type="password"
+                                            id="password" name="password" required></div>
+                                </div>
+                                <div>
+                                    <label for="street">Street Address</label>
+                                    <br>
+                                    <div class="gradient-box"><input class="gradient-content" type="text" id="street"
+                                            name="street" required></div>
+                                </div>
+                                <div>
+                                    <label for="city">City</label>
+                                    <br>
+                                    <div class="gradient-box"><input class="gradient-content" type="text" id="city"
+                                            name="city" required></div>
+                                </div>
+                                <button type="submit">Register</button>
+                            </form>
             </main>
             <%- include('footer'); %>
 </body>

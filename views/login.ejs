@@ -4,27 +4,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Mathmato - Login</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
+    <script src="https://kit.fontawesome.com/35e096853f.js" crossorigin="anonymous"></script>
+    <script src="scripts/display.js"></script>
 </head>
 
 <body>
-    <h1>Login</h1>
-    <!-- Display flash messages if any -->
-    <% if (messages.error) { %>
-        <%= messages.error %>
-            <% } %>
-                <form action="/login" method="POST">
-                    <div>
-                        <label for="email">Email</label>
-                        <input type="text" id="email" name="email" required>
-                    </div>
-                    <div>
-                        <label for="password">Password</label>
-                        <input type="password" id="password" name="password" required>
-                    </div>
-                    <button type="submit">Login</button>
-                </form>
-                <a href="/register">Register</a>
+    <section>
+        <%- include('nav'); %>
+            <section class="jumbotron">
+                <div class="jumbo-logo">
+                    <img alt="Tomato Logo" src="assets/tomato.png">
+                    <h1 class="logo-text">Mathmato</h1>
+                </div>
+                <caption>
+                    <a href='https://pngtree.com/freepng/cartoon-tomato-cute-vegetable-sticker-emoticon_6643576.html'>Image
+                        from pngtree.com/</a>
+                </caption>
+            </section>
+            <main>
+                <!-- Display flash messages if any -->
+                <% if (messages.error) { %>
+                    <%= messages.error %>
+                        <% } %>
+                            <br>
+                            <h1>Login</h1>
+                            <p>Log in and access your free account</p>
+                            <p>Play up to 200 puzzles and try beat our high scores!</p>
+                            <br>
+                            <form action="/login" method="POST" autocomplete="on">
+                                <div>
+                                    <label for="email">Email</label>
+                                    <div class="gradient-box"><input class="gradient-content" type="text" id="email"
+                                            name="email" required autocomplete="email"></div>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="password">Password</label>
+                                    <div class="gradient-box"><input class="gradient-content" type="password"
+                                            id="password" name="password" required></div>
+                                </div>
+                                <br>
+                                <button type="submit">Login</button>
+                            </form>
+            </main>
+            <%- include('footer'); %>
 </body>
 
 </html>

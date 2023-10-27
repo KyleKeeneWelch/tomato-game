@@ -55,7 +55,7 @@ app.use(express.static(__dirname + "/public/"));
 // Pass in name from serialized user. Check if authenticated and redirect to login if not.
 app.get("/", checkAuthenticated, (req, res) => {
   // console.log(req.user);
-  const isAuthenticated = false;
+  let isAuthenticated = false;
   if (req.isAuthenticated()) {
     isAuthenticated = true;
   }
@@ -67,7 +67,7 @@ app.get("/", checkAuthenticated, (req, res) => {
 
 // Check if not authenticated and redirect to home if is.
 app.get("/login", checkNotAuthenticated, (req, res) => {
-  const isAuthenticated = false;
+  let isAuthenticated = false;
   if (req.isAuthenticated()) {
     isAuthenticated = true;
   }
@@ -88,7 +88,7 @@ app.post(
 
 // Check if not authenticated and redirect to home if is.
 app.get("/register", checkNotAuthenticated, (req, res) => {
-  const isAuthenticated = false;
+  let isAuthenticated = false;
   if (req.isAuthenticated()) {
     isAuthenticated = true;
   }
