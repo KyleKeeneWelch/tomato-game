@@ -10,13 +10,13 @@ const passport = require("passport");
 const flash = require("express-flash");
 const session = require("express-session");
 const methodOverride = require("method-override");
-const _database = require("./database");
+const _database = require("./scripts/database");
 
 const database = new _database();
 database.connect();
 
 // Separates passport initialization from server. Injects functions to find user by email and id.
-const initializePassport = require("./passport-config");
+const initializePassport = require("./scripts/passport-config");
 initializePassport(passport, database);
 
 // async function findUser() {

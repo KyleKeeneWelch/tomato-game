@@ -12,45 +12,45 @@
 </head>
 
 <body>
-    <section>
-        <%- include('nav'); %>
-            <section class="jumbotron">
-                <div class="jumbo-logo">
-                    <img alt="Tomato Logo" src="assets/tomato.png">
-                    <h1 class="logo-text">Mathmato</h1>
-                </div>
-                <caption>
-                    <a href='https://pngtree.com/freepng/cartoon-tomato-cute-vegetable-sticker-emoticon_6643576.html'>Image
-                        from pngtree.com/</a>
-                </caption>
-            </section>
-            <main>
-                <!-- Display flash messages if any -->
-                <% if (messages.error) { %>
-                    <%= messages.error %>
-                        <% } %>
+    <%- include('nav'); %>
+        <section class="jumbotron">
+            <div class="jumbo-logo">
+                <img alt="Tomato Logo" src="assets/tomato.png">
+                <h1 class="logo-text">Mathmato</h1>
+            </div>
+            <caption>
+                <a href='https://pngtree.com/freepng/cartoon-tomato-cute-vegetable-sticker-emoticon_6643576.html'>Image
+                    from pngtree.com/</a>
+            </caption>
+        </section>
+        <main>
+            <br>
+            <!-- Display flash messages if any -->
+            <% if (messages.error) { %>
+                <%= messages.error %>
+                    <% } %>
+                        <br>
+                        <h1>Login</h1>
+                        <p>Log in and access your free account</p>
+                        <p>Play up to 200 puzzles and try beat our high scores!</p>
+                        <br>
+                        <form action="/login" method="POST" autocomplete="on">
+                            <div>
+                                <label for="email">Email</label>
+                                <div class="gradient-box"><input class="gradient-content" type="text" id="email"
+                                        name="email" required autocomplete="email"></div>
+                            </div>
                             <br>
-                            <h1>Login</h1>
-                            <p>Log in and access your free account</p>
-                            <p>Play up to 200 puzzles and try beat our high scores!</p>
+                            <div>
+                                <label for="password">Password</label>
+                                <div class="gradient-box"><input class="gradient-content" type="password" id="password"
+                                        name="password" required></div>
+                            </div>
                             <br>
-                            <form action="/login" method="POST" autocomplete="on">
-                                <div>
-                                    <label for="email">Email</label>
-                                    <div class="gradient-box"><input class="gradient-content" type="text" id="email"
-                                            name="email" required autocomplete="email"></div>
-                                </div>
-                                <br>
-                                <div>
-                                    <label for="password">Password</label>
-                                    <div class="gradient-box"><input class="gradient-content" type="password"
-                                            id="password" name="password" required></div>
-                                </div>
-                                <br>
-                                <button type="submit">Login</button>
-                            </form>
-            </main>
-            <%- include('footer'); %>
+                            <button type="submit">Login</button>
+                        </form>
+        </main>
+        <%- include('footer'); %>
 </body>
 
 </html>

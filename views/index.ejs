@@ -4,16 +4,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Mathmato - Game</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
+    <script src="https://kit.fontawesome.com/35e096853f.js" crossorigin="anonymous"></script>
+    <script src="scripts/display.js"></script>
 </head>
 
 <body>
-    <h1>Hi <%= name %>
-    </h1>
-    <!-- Use method override to call app.delete -->
-    <form action="/logout?_method=DELETE" method="POST">
-        <button type="submit">Log Out</button>
-    </form>
+    <section>
+        <%- include('nav'); %>
+            <main>
+                <header>
+                    <h1>Hi <%= name %>
+                    </h1>
+                </header>
+                <div class="game-tutorial" id="game-tutorial">
+                    <div>
+                        <p>Do you have what it takes to become an astounded Mathmato-cian?</p>
+                        <p>Simply follow the tutorial below and press "Play" to begin!</p>
+                    </div>
+                    <br>
+                    <div>
+                        <h2>Six Equations</h2>
+                        <img src='assets/tutorial-image.png' alt="tutorial image">
+                        <p>A fun game that challenges your ability to quickly calculate the answer to a series of
+                            equations which when substituted in the placeholders, solves each of them simultaneously.
+                        </p>
+                        <button id="btn-play">Play</button>
+                    </div>
+                </div>
+                <div class="game-content" id="game-content">
+                    <div class="gradient-box">
+                        <img class="gradient-content" id="game-question" alt="Game Question">
+                        <div>Timer</div>
+                        <div>Options</div>
+                    </div>
+                    <div>
+                        <div>
+                            <h3>Your Score</h3>
+                            <h3 id="game-score"></h3>
+                        </div>
+                        <div>
+                            <button>Skip Question</button>
+                            <button>Quit</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <%- include('footer'); %>
 </body>
 
 </html>

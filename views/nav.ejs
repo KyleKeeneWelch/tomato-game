@@ -6,10 +6,10 @@
     <div class="nav">
         <a href="javascript:void(0);" class="icon" id="btn-hamburger">&#9776;</a>
         <% if (isAuthenticated) { %>
-            <a href="/">Play</a>
-            <a href="">High Scores</a>
+            <a href="/high-scores">High Scores</a>
+            <!-- Use method override to call app.delete -->
             <form action="/logout?_method=DELETE" method="POST">
-                <button type="submit">Log Out</button>
+                <a class="submit-link">Log Out</a>
             </form>
             <% } else { %>
                 <a href="/login">Login</a>
@@ -18,10 +18,10 @@
     </div>
     <div class="responsive-menu" id="responsive-menu">
         <% if (isAuthenticated) { %>
-            <a href="/">Play</a>
-            <a href="">High Scores</a>
+            <a href="/high-scores">High Scores</a>
+            <!-- Use method override to call app.delete -->
             <form action="/logout?_method=DELETE" method="POST">
-                <button type="submit">Log Out</button>
+                <a class="submit-link">Log Out</a>
             </form>
             <% } else { %>
                 <a href="/login">Login</a>

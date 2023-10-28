@@ -221,16 +221,32 @@ nav {
     }
 }
 
+.game-content {
+    display: none;
+}
+
+.game-tutorial.inactive {
+    display: none;
+}
+
+.game-content.active {
+    display: block;
+}
+
 form {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 100%;
+    /* width: 100%; */
 
     & div {
         width: 50%;
         padding: var(--spacing-xs);
+    }
+
+    & a {
+        cursor: pointer;
     }
 }
 
@@ -298,7 +314,7 @@ footer {
 }
 
 @media only screen and (max-width: 700px) {
-    .nav a:not(:first-child) {				
+    .nav :not(:first-child) {				
         display: none;
     }
 
