@@ -9,8 +9,8 @@ module.exports = {
   devtool: "inline-source-map",
   output: {
     filename: "display.js",
-    path: path.resolve(__dirname, "./public/scripts"),
-    clean: true,
+    path: path.resolve(__dirname, "./public"),
+    // clean: true,
   },
   module: {
     rules: [
@@ -23,6 +23,14 @@ module.exports = {
             presets: ["@babel/preset-env"],
           },
         },
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        use: [
+          {
+            loader: "file-loader",
+          },
+        ],
       },
     ],
   },

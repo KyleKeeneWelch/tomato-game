@@ -6,16 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mathmato - Login</title>
     <link rel="stylesheet" href="styles/main.css">
-    <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
     <script src="https://kit.fontawesome.com/35e096853f.js" crossorigin="anonymous"></script>
-    <script src="scripts/display.js"></script>
+    <script src="display.js"></script>
 </head>
 
 <body>
     <%- include('nav'); %>
         <section class="jumbotron">
             <div class="jumbo-logo">
-                <img alt="Tomato Logo" src="assets/tomato.png">
+                <img alt="Tomato Logo" src="static-images/tomato.png">
                 <h1 class="logo-text">Mathmato</h1>
             </div>
             <caption>
@@ -37,14 +37,14 @@
                         <form action="/login" method="POST" autocomplete="on">
                             <div>
                                 <label for="email">Email</label>
-                                <div class="gradient-box"><input class="gradient-content" type="text" id="email"
-                                        name="email" required autocomplete="email"></div>
+                                <div class="gradient-box"><input type="text" id="email" name="email" required
+                                        autocomplete="email"></div>
                             </div>
                             <br>
                             <div>
                                 <label for="password">Password</label>
-                                <div class="gradient-box"><input class="gradient-content" type="password" id="password"
-                                        name="password" required></div>
+                                <div class="gradient-box"><input type="password" id="password" name="password" required>
+                                </div>
                             </div>
                             <br>
                             <button type="submit">Login</button>

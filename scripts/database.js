@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const User = require("../models/User");
+const Score = require("../models/Score");
 
 class Database {
   connect() {
@@ -15,25 +16,28 @@ class Database {
       });
   }
 
-  async findOne(query, collection, options = {}) {
+  async findHighScores() {
     try {
-      let model;
-      if (collection == "users") {
-        model = User;
-      }
-      return await model.findOne(query, options);
+      return await Score.find()
+        .sort({ score: -1 })
+        .limit(10)
+        .select({ _id: 0, user: 1, score: 1, createdAt: 1 });
     } catch (e) {
       console.log(e);
     }
   }
 
-  async findById(Id, collection) {
+  async findOneUser(query) {
     try {
-      let model;
-      if (collection == "users") {
-        model = User;
-      }
-      return await model.findById(Id);
+      return await User.findOne(query);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async findById(Id) {
+    try {
+      return await User.findById(Id);
     } catch (e) {
       console.log(e);
     }
@@ -44,6 +48,8 @@ class Database {
       let model;
       if (collection == "users") {
         model = User;
+      } else if (collection == "scores") {
+        model = Score;
       }
       await model.create(doc);
     } catch (e) {

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathmato - High Scores</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
+    <script src="https://kit.fontawesome.com/35e096853f.js" crossorigin="anonymous"></script>
+    <script src="display.js"></script>
+</head>
+
+<body>
+    <%- include('nav'); %>
+        <main>
+            <header>
+                <h1>High Scores</h1>
+            </header>
+            <% highScoreData.forEach((highScore)=> { %
+                <p> Name: <%= highScore.name %> Score: <%= highScore.score %> Date: <%= highScore.date %>
+                </p>
+                <% }) %>
+        </main>
+        <%- include('footer'); %>
+</body>
+
+</html>

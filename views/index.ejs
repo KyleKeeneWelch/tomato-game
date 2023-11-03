@@ -6,53 +6,138 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mathmato - Game</title>
     <link rel="stylesheet" href="styles/main.css">
-    <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
     <script src="https://kit.fontawesome.com/35e096853f.js" crossorigin="anonymous"></script>
-    <script src="scripts/display.js"></script>
+    <script src="display.js"></script>
 </head>
 
 <body>
-    <section>
-        <%- include('nav'); %>
-            <main>
-                <header>
-                    <h1>Hi <%= name %>
-                    </h1>
-                </header>
-                <div class="game-tutorial" id="game-tutorial">
-                    <div>
-                        <p>Do you have what it takes to become an astounded Mathmato-cian?</p>
-                        <p>Simply follow the tutorial below and press "Play" to begin!</p>
-                    </div>
-                    <br>
-                    <div>
-                        <h2>Six Equations</h2>
-                        <img src='assets/tutorial-image.png' alt="tutorial image">
-                        <p>A fun game that challenges your ability to quickly calculate the answer to a series of
-                            equations which when substituted in the placeholders, solves each of them simultaneously.
-                        </p>
+    <%- include('nav'); %>
+        <main>
+            <header>
+                <h1 id="game-header">Hi <%= name %>
+                </h1>
+            </header>
+            <div class="game-hub" id="game-hub">
+                <div>
+                    <p>Do you have what it takes to become an astounded Mathmato-cian?</p>
+                    <p>Simply choose a game below and press "Play" to begin!</p>
+                </div>
+                <br>
+                <div class="game-container">
+                    <h2>Six Equations</h2>
+                    <img src='static-images/six-equations.png' alt="Six Equations Image">
+                    <div class="game-info">
+                        <div class="game-description">
+                            <h3>Description</h3>
+                            <p>
+                                A fun game that challenges your ability to quickly calculate the answer to a series
+                                of
+                                equations which when substituted in the placeholders, solves each of them
+                                simultaneously. Every five points decreases the timer by ten seconds so think fast.
+                                Reach the top ten to find yourself a high score!
+                            </p>
+                        </div>
+                        <div class="game-difficulty">
+                            <h3>Difficulty - Easy</h3>
+                            <img src="static-images/tomato.png" alt="Difficulty Tomato">
+                        </div>
                         <button id="btn-play">Play</button>
                     </div>
                 </div>
-                <div class="game-content" id="game-content">
-                    <div class="gradient-box">
-                        <img class="gradient-content" id="game-question" alt="Game Question">
-                        <div>Timer</div>
-                        <div>Options</div>
+            </div>
+            <div class="game-content" id="game-content">
+                <div class="play-game-container">
+                    <div class="gradient-box game-question-container"><img id="game-question" alt="Game Question">
                     </div>
-                    <div>
+                    <div class="game-status-container">
+                        <h3 id="game-status">Select an Answer</h3>
+                    </div>
+                    <div class="game-timer-container">
                         <div>
-                            <h3>Your Score</h3>
-                            <h3 id="game-score"></h3>
+                            <h3 id="game-timer">60</h3>
                         </div>
-                        <div>
-                            <button>Skip Question</button>
-                            <button>Quit</button>
+                    </div>
+                    <div class="game-options-container">
+                        <div class="game-option">
+                            <div>
+                                <h3>0</h3>
+                            </div>
+                        </div>
+                        <div class="game-option">
+                            <div>
+                                <h3>1</h3>
+                            </div>
+                        </div>
+                        <div class="game-option">
+                            <div>
+                                <h3>2</h3>
+                            </div>
+                        </div>
+                        <div class="game-option">
+                            <div>
+                                <h3>3</h3>
+                            </div>
+                        </div>
+                        <div class="game-option">
+                            <div>
+                                <h3>4</h3>
+                            </div>
+                        </div>
+                        <div class="game-option">
+                            <div>
+                                <h3>5</h3>
+                            </div>
+                        </div>
+                        <div class="game-option">
+                            <div>
+                                <h3>6</h3>
+                            </div>
+                        </div>
+                        <div class="game-option">
+                            <div>
+                                <h3>7</h3>
+                            </div>
+                        </div>
+                        <div class="game-option">
+                            <div>
+                                <h3>8</h3>
+                            </div>
+                        </div>
+                        <div class="game-option">
+                            <div>
+                                <h3>9</h3>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </main>
-            <%- include('footer'); %>
+                <div class="game-buttons-container">
+                    <button class="btn-restart">Restart</button>
+                    <button class="btn-quit">Quit</button>
+                </div>
+                <div class="game-score-container">
+                    <h3>Your Score</h3>
+                    <h3 id="game-score">0</h3>
+                </div>
+            </div>
+        </main>
+        <div class="game-over-modal" id="game-over-modal">
+            <div>
+                <div>
+                    <h2>Game Over</h2>
+                    <h3 class="game-over-high-score" id="game-over-high-score">NEW HIGH SCORE</h3>
+                    <p>Your Score</p>
+                    <h3 id="game-over-score">0</h3>
+                </div>
+                <div>
+                    <button class="btn-restart">Restart</button>
+                    <button class="btn-quit">Quit</button>
+                </div>
+                <br>
+            </div>
+        </div>
+        <div class="overlay" id="overlay"></div>
+        <%- include('footer'); %>
 </body>
 
 </html>

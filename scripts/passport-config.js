@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 function initialize(passport, database) {
   // Authenticates user and displays appropriate error flash messages
   const authenticateUser = async (email, password, done) => {
-    const user = await database.findOne({ email: email }, "users");
+    const user = await database.findOneUser({ email: email });
     if (user == null) {
       return done(null, false, { message: "No user with that email" });
     }

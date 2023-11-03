@@ -1,6 +1,13 @@
 import { getResource } from "./tomato-api";
 
 export class Controller {
+  constructor() {
+    // this.gameOver = false;
+    this.question = null;
+    this.solution = null;
+    this.score = 0;
+  }
+
   async getResource() {
     try {
       const response = await getResource();
@@ -10,6 +17,26 @@ export class Controller {
     } catch (e) {
       console.log(e);
     }
+  }
+
+  // setGameOver() {
+  //   this.gameOver = true;
+  // }
+
+  // isGameOver() {
+  //   return this.gameOver;
+  // }
+
+  incrementScore() {
+    this.score++;
+  }
+
+  getScore() {
+    return this.score;
+  }
+
+  resetScore() {
+    this.score = 0;
   }
 
   // playRound() {
