@@ -17,10 +17,26 @@
             <header>
                 <h1>High Scores</h1>
             </header>
-            <% highScoreData.forEach((highScore)=> { %
-                <p> Name: <%= highScore.name %> Score: <%= highScore.score %> Date: <%= highScore.date %>
-                </p>
-                <% }) %>
+            <h2>Six Equations</h2>
+            <br>
+            <div class="highscore-grid">
+                <div class="highscore-info">
+                    <p>Position</p>
+                    <p>Name</p>
+                    <p>Score</p>
+                    <p>Date</p>
+                </div>
+                <% data.forEach((highScore, index)=> { %>
+                    <div class="highscore-container">
+                        <div>
+                            <p><%-index + 1 %></p>
+                            <p><%-highScore.name %></p>
+                            <p><%-highScore.score %></p>
+                            <p><%-highScore.date %></p>
+                        </div>
+                    </div>
+                    <% }) %>
+            </div>
         </main>
         <%- include('footer'); %>
 </body>

@@ -20,12 +20,6 @@ database.connect();
 const initializePassport = require("./scripts/passport-config");
 initializePassport(passport, database);
 
-// async function findUser() {
-//   const result = await database.findById("6532c9cbd1616f036fb1fc94", "users");
-//   console.log(result);
-// }
-// findUser();
-
 // Set the express app to use ejs as view engine
 app.set("view-engine", "ejs");
 // Allow access to form fields in request object from POST
@@ -57,7 +51,6 @@ app.use(express.json());
 
 // Pass in name from serialized user. Check if authenticated and redirect to login if not.
 app.get("/", checkAuthenticated, (req, res) => {
-  // console.log(req.user);
   let isAuthenticated = false;
   if (req.isAuthenticated()) {
     isAuthenticated = true;
@@ -148,23 +141,42 @@ app.get("/userhighscores", checkAuthenticated, async (req, res) => {
   try {
     let highScores = null;
     let isAuthenticated = false;
+    let promiseArray = [];
+
     if (req.isAuthenticated()) {
       isAuthenticated = true;
       highScores = await getHighScores();
-      const highScoreData = [];
-      highScores.forEach(async (score) => {
-        const name = await database.findById(score.user).name;
-        highScoreData.push({
-          name: name,
-          score: score.score,
-          date: score.createdAt,
-        });
+
+      highScores.forEach((score) => {
+        promiseArray.push(
+          new Promise(async (resolve) => {
+            const user = await database.findOneUser({
+              _id: score.user.toString(),
+            });
+            resolve(user.name);
+          })
+        );
       });
+
+      Promise.all(promiseArray)
+        .then((names) => {
+          let highScoreData = [];
+          highScores.forEach((highScore, index) => {
+            highScoreData.push({
+              name: names[index],
+              score: highScore.score,
+              date: highScore.createdAt.toDateString(),
+            });
+          });
+          return highScoreData;
+        })
+        .then((highScoreData) => {
+          res.render("highscores.ejs", {
+            isAuthenticated: isAuthenticated,
+            data: highScoreData,
+          });
+        });
     }
-    res.render("highscores.ejs", {
-      isAuthenticated: isAuthenticated,
-      highScoreData: highScoreData,
-    });
   } catch (e) {
     console.log(e);
     res.redirect("/");

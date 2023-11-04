@@ -64,9 +64,9 @@ class Display {
       const jsonResponse = await response.json();
       const currentScore = this.controller.getScore();
       jsonResponse.forEach((userScore) => {
-        if (currentScore > userScore.score) {
-          console.log("Is a high score");
+        if (currentScore >= userScore.score) {
           gameOverHighScore.classList.add("active");
+          return;
         }
       });
     } catch (e) {
@@ -79,7 +79,7 @@ class Display {
     const scoreInterval = 5;
 
     try {
-      let secondsRemaining = 5;
+      let secondsRemaining = 60;
       let currentScore = this.controller.getScore();
       if (Math.floor(currentScore / scoreInterval) == 1) {
         secondsRemaining = 50;
