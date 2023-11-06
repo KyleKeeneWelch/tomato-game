@@ -2,12 +2,12 @@ import { getResource } from "./tomato-api";
 
 export class Controller {
   constructor() {
-    // this.gameOver = false;
     this.question = null;
     this.solution = null;
     this.score = 0;
   }
 
+  // Gets resource from tomato api and assigns question and solution to variables.
   async getResource() {
     try {
       const response = await getResource();
@@ -18,14 +18,6 @@ export class Controller {
       console.log(e);
     }
   }
-
-  // setGameOver() {
-  //   this.gameOver = true;
-  // }
-
-  // isGameOver() {
-  //   return this.gameOver;
-  // }
 
   incrementScore() {
     this.score++;
@@ -38,13 +30,6 @@ export class Controller {
   resetScore() {
     this.score = 0;
   }
-
-  // playRound() {
-  //   const resource = this.getResource();
-  //   // const resource = { question: "question", solution: "solution" };
-  //   this.question = resource.question;
-  //   this.solution = resource.solution;
-  // }
 
   getQuestion() {
     return this.question;

@@ -1,10 +1,6 @@
 const mongoose = require("mongoose");
 
-// const addressSchema = new mongoose.Schema({
-//   street: String,
-//   city: String,
-// });
-
+// Define new schema for user model.
 const userSchema = new mongoose.Schema(
   {
     name: String,
@@ -37,15 +33,10 @@ const userSchema = new mongoose.Schema(
   { collection: "users" }
 );
 
-// pre before, post after
+// Updates the updatedAt field before each save to user.
 userSchema.pre("save", function (next) {
   this.updatedAt = Date.now();
   next();
 });
-
-// userSchema.post("save", function (doc, next) {
-//   this.sayHi();
-//   next();
-// });
 
 module.exports = mongoose.model("User", userSchema);

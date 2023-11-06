@@ -3,6 +3,7 @@ const User = require("../models/User");
 const Score = require("../models/Score");
 
 class Database {
+  // Connects to mongoDB database using credentials stored in the env file.
   connect() {
     mongoose
       .connect(
@@ -16,6 +17,7 @@ class Database {
       });
   }
 
+  // Obtains scores, sorts from highest score to lowest, then selects appropriate fields.
   async findHighScores() {
     try {
       return await Score.find()
@@ -43,6 +45,7 @@ class Database {
     }
   }
 
+  // Selects model to create from after passing in collection.
   async create(doc, collection) {
     try {
       let model;

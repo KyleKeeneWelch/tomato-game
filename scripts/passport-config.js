@@ -1,6 +1,7 @@
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcrypt");
 
+// Initializes passport for authentication.
 function initialize(passport, database) {
   // Authenticates user and displays appropriate error flash messages
   const authenticateUser = async (email, password, done) => {

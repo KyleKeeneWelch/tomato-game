@@ -6,11 +6,10 @@ module.exports = {
   entry: {
     entry: "./scripts/display.js",
   },
-  devtool: "inline-source-map",
+  devtool: "eval",
   output: {
     filename: "display.js",
     path: path.resolve(__dirname, "./public"),
-    // clean: true,
   },
   module: {
     rules: [

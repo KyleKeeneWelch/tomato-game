@@ -2,6 +2,7 @@ import { Controller } from "./controller";
 import tomatoLoading from "../public/static-images/tomato-loading.png";
 
 class Display {
+  // Initializes controller and timer.
   constructor() {
     this.controller = new Controller();
     this.timer = null;
@@ -37,6 +38,7 @@ class Display {
     gameOverHighScore.classList.remove("active");
   }
 
+  // Uses fetch to submit score to highscore route with formatted JSON.
   async submitScore() {
     try {
       const data = { score: this.controller.getScore() };
@@ -52,6 +54,7 @@ class Display {
     }
   }
 
+  // Uses fetch to receive top ten highscores and compares to current score.
   async checkHighScore() {
     const gameOverHighScore = document.getElementById("game-over-high-score");
     try {
@@ -81,6 +84,8 @@ class Display {
     try {
       let secondsRemaining = 60;
       let currentScore = this.controller.getScore();
+
+      // Increases difficulty every five score points earned up to 25.
       if (Math.floor(currentScore / scoreInterval) == 1) {
         secondsRemaining = 50;
       } else if (Math.floor(currentScore / scoreInterval) == 2) {
@@ -111,6 +116,7 @@ class Display {
     }
   }
 
+  // Sets game question to loading state while obtaining new question then sets to question and starts timer.
   async getNewQuestion() {
     const gameQuestion = document.getElementById("game-question");
     gameQuestion.src = tomatoLoading;
@@ -152,6 +158,7 @@ class Display {
     gameOverHighScore.classList.remove("active");
   }
 
+  // Assigns game status for current question to display correct or incorrect depending on status passed.
   updateScore(status) {
     const gameStatus = document.getElementById("game-status");
 
@@ -181,6 +188,7 @@ class Display {
     }
   }
 
+  // Initializes listeners common across all pages.
   initCommonListeners() {
     const btnHamburger = document.getElementById("btn-hamburger");
     const responsiveMenu = document.getElementById("responsive-menu");
@@ -195,10 +203,12 @@ class Display {
       }
     });
 
+    // Removes responsive menu upon reaching a desktop state.
     desktopStateQuery.addEventListener("change", () => {
       responsiveMenu.classList.remove("active");
     });
 
+    // Assists submitting the logout process.
     submitLinks.forEach((link) => {
       link.addEventListener("click", (e) => {
         e.target.parentNode.submit();
@@ -206,6 +216,7 @@ class Display {
     });
   }
 
+  // Initializes listeners specific to the game.
   initGameListeners() {
     const btnPlay = document.getElementById("btn-play");
     const gameOptions = document.querySelectorAll(".game-option");
@@ -216,6 +227,7 @@ class Display {
       this.startGame();
     });
 
+    // Passes button text content without whitespace to function.
     gameOptions.forEach((option) => {
       option.addEventListener("click", (e) => {
         this.checkAnswer(e.target.textContent.trim());
@@ -236,6 +248,7 @@ class Display {
   }
 }
 
+// On window load, initialize new display, common listeners and game listeners if index.
 window.onload = () => {
   const display = new Display();
   display.initCommonListeners();

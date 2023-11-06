@@ -1,10 +1,6 @@
 const mongoose = require("mongoose");
 
-// const addressSchema = new mongoose.Schema({
-//   street: String,
-//   city: String,
-// });
-
+// Define new schema for score model.
 const scoreSchema = new mongoose.Schema(
   {
     user: {

@@ -1,0 +1,11 @@
+<% if (isAuthenticated) { %>
+    <a <% if (pageName=='play' ) { %>class="active"<% } %> href="/">Play</a>
+    <a <% if (pageName=='highscores' ) { %>class="active"<% } %> href="/userhighscores">High Scores</a>
+    <!-- Use method override to call app.delete -->
+    <form action="/logout?_method=DELETE" method="POST">
+        <a class="submit-link">Log Out</a>
+    </form>
+    <% } else { %>
+        <a <% if (pageName=='login' ) { %>class="active"<% } %> href="/login">Login</a>
+        <a <% if (pageName=='register' ) { %>class="active"<% } %> href="/register">Register</a>
+        <% } %>

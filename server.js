@@ -11,8 +11,8 @@ const flash = require("express-flash");
 const session = require("express-session");
 const methodOverride = require("method-override");
 const _database = require("./scripts/database");
-const http = require("http");
 
+// Initialize new database and connect.
 const database = new _database();
 database.connect();
 
@@ -49,29 +49,33 @@ app.use(express.json());
 
 // Routes //////////////////////
 
-// Pass in name from serialized user. Check if authenticated and redirect to login if not.
+// Pass in name from serialized user. Check if authenticated and redirect to login if not. Pass in page name.
 app.get("/", checkAuthenticated, (req, res) => {
   let isAuthenticated = false;
+  const pageName = "play";
   if (req.isAuthenticated()) {
     isAuthenticated = true;
   }
   res.render("index.ejs", {
     name: req.user.name,
     isAuthenticated: isAuthenticated,
+    pageName: pageName,
   });
 });
 
-// Check if not authenticated and redirect to home if is.
 app.get("/login", checkNotAuthenticated, (req, res) => {
   let isAuthenticated = false;
+  const pageName = "login";
   if (req.isAuthenticated()) {
     isAuthenticated = true;
   }
-  res.render("login.ejs", { isAuthenticated: isAuthenticated });
+  res.render("login.ejs", {
+    isAuthenticated: isAuthenticated,
+    pageName: pageName,
+  });
 });
 
 // Use passport local strategy to redirect and display flash messages upon authentication outcome.
-//Check if not authenticated and redirect to home if is.
 app.post(
   "/login",
   checkNotAuthenticated,
@@ -82,20 +86,23 @@ app.post(
   })
 );
 
-// Check if not authenticated and redirect to home if is.
 app.get("/register", checkNotAuthenticated, (req, res) => {
   let isAuthenticated = false;
+  const pageName = "register";
   if (req.isAuthenticated()) {
     isAuthenticated = true;
   }
-  res.render("register.ejs", { isAuthenticated: isAuthenticated });
+  res.render("register.ejs", {
+    isAuthenticated: isAuthenticated,
+    pageName: pageName,
+  });
 });
 
 // Use bcrypt to hash the password for safe storage.
-// Check if not authenticated and redirect to home if is.
 app.post("/register", checkNotAuthenticated, async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    // Create new user.
     database.create(
       {
         name: req.body.name,
@@ -111,6 +118,7 @@ app.post("/register", checkNotAuthenticated, async (req, res) => {
   }
 });
 
+// Submit score.
 app.post("/highscores", checkAuthenticated, async (req, res) => {
   try {
     const data = {
@@ -118,6 +126,7 @@ app.post("/highscores", checkAuthenticated, async (req, res) => {
       score: req.body.score,
       createdAt: Date.now(),
     };
+    // Create new score from data.
     await database.create(data, "scores");
   } catch (e) {
     console.log(e);
@@ -125,6 +134,7 @@ app.post("/highscores", checkAuthenticated, async (req, res) => {
   }
 });
 
+// Get highscores and send JSON response.
 app.get("/highscores", checkAuthenticated, async (req, res) => {
   try {
     const highScores = await getHighScores();
@@ -137,16 +147,19 @@ app.get("/highscores", checkAuthenticated, async (req, res) => {
   }
 });
 
+// Get high scores then pass to template.
 app.get("/userhighscores", checkAuthenticated, async (req, res) => {
   try {
     let highScores = null;
     let isAuthenticated = false;
     let promiseArray = [];
+    const pageName = "highscores";
 
     if (req.isAuthenticated()) {
       isAuthenticated = true;
       highScores = await getHighScores();
 
+      // Create promise for each highscore which will resolve with the user's name for each score.
       highScores.forEach((score) => {
         promiseArray.push(
           new Promise(async (resolve) => {
@@ -158,9 +171,11 @@ app.get("/userhighscores", checkAuthenticated, async (req, res) => {
         );
       });
 
+      // Create promise which resolves with result from each passed in promise from array.
       Promise.all(promiseArray)
         .then((names) => {
           let highScoreData = [];
+          // Add high score data for each highscore obtained.
           highScores.forEach((highScore, index) => {
             highScoreData.push({
               name: names[index],
@@ -174,6 +189,7 @@ app.get("/userhighscores", checkAuthenticated, async (req, res) => {
           res.render("highscores.ejs", {
             isAuthenticated: isAuthenticated,
             data: highScoreData,
+            pageName: pageName,
           });
         });
     }
@@ -195,6 +211,7 @@ app.delete("/logout", (req, res, next) => {
 
 ///////////////////////
 
+// Returns high scores from database.
 async function getHighScores() {
   return await database.findHighScores();
 }
